@@ -6,7 +6,11 @@ module.exports = {
 			const payload = {
 				name: 'usman007',
 			}
-			const options = {expiresIn: '1h', issuer: 'usman', audence: userId}
+			const options = {
+				expiresIn: '1h',
+				issuer: 'usman',
+				audience: String(userId),
+			}
 			JWT.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
 				if (err) reject(err)
 				resolve(token)

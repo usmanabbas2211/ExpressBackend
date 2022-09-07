@@ -41,7 +41,7 @@ const login = async (req, res, next) => {
 	}
 
 	const isMatch = await existingUser.isValidPassword(password)
-	console.log({isMatch})
+
 	if (!isMatch) {
 		return bad_request(res, 'Either email or password is incorrect')
 	}

@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		minlength: 6,
-		select: false,
+		// select: false,
 	},
 })
 
@@ -32,8 +32,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.isValidPassword = async function (password) {
 	try {
-		// return await bcrypt.compare(password, this.password)
-		return true
+		return await bcrypt.compare(password, this.password)
 	} catch (err) {
 		throw err
 	}

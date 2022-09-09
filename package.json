@@ -20,5 +20,10 @@
 		"mongoose": "^6.5.4",
 		"morgan": "^1.10.0",
 		"uuid": "^9.0.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.23.0",
+		"eslint-config-prettier": "^8.5.0",
+		"prettier": "^2.7.1"
 	}
 }

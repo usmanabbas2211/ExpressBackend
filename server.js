@@ -1,8 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const { authenticate } = require("./middlewares/auth")
 const userRoutes = require('./routes/userRoutes')
-const welcomeRoutes = require('./routes/welcomeRoutes')
+const taskRoutes = require('./routes/taskRoutes')
 require('colors')
 require('dotenv').config()
 
@@ -12,7 +13,7 @@ app.use(express.json())
 app.use(morgan('combined'))
 
 app.use('/api', userRoutes)
-app.use('/api/welcome', welcomeRoutes)
+app.use('/api/tasks',authenticate ,taskRoutes)
 
 mongoose
 	.connect(process.env.MONGO_QUERY_STRING)

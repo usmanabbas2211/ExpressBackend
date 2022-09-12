@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const taskSchema = new mongoose.Schema({
     userId: {
-        ref: '',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
     heading: {
         type: String,

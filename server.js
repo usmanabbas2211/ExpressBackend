@@ -12,7 +12,10 @@ app.use(express.json())
 
 app.use(morgan('combined'))
 app.get('/api/hello', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello World get!')
+})
+app.post('/api/hello', (req, res) => {
+    res.send('Hello World post!')
 })
 app.use('/api', userRoutes)
 app.use('/api/tasks', authenticate, taskRoutes)

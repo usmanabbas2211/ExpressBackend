@@ -4,12 +4,17 @@ const morgan = require('morgan')
 const { authenticate } = require('./middlewares/auth')
 const userRoutes = require('./routes/userRoutes')
 const taskRoutes = require('./routes/taskRoutes')
+const cors = require('cors')
 require('colors')
 require('dotenv').config()
 
 const app = express()
 app.use(express.json())
-
+app.use(
+    cors({
+        origin: '*',
+    })
+)
 app.use(morgan('combined'))
 app.get('/api/hello', (req, res) => {
     res.send('Hello World get!')

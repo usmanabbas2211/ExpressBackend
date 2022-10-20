@@ -4,24 +4,22 @@ const { signAccessToken } = require('../helpers/jwtHelper')
 
 const signup = async (req, res, next) => {
     const { name, email, password } = req.body
-    const user = new User({
-        name,
-        email,
-        password,
-    })
-    let existingUser
+
+    let existingUser = await User.findOne({ email: email })
     try {
-        existingUser = await User.findOne({ email: email })
-    } catch (err) {
-        return server_error(res, err)
-    }
-    if (existingUser) {
-        return bad_request(res, 'user with same email address already exists')
-    }
-    try {
+        if (existingUser) {
+            return bad_request(
+                res,
+                'user with same email address already exists'
+            )
+        }
+        const user = new User({
+            name,
+            email,
+            password,
+        })
         const savedUser = await user.save()
         const token = await signAccessToken(savedUser._id)
-
         return ok(res, 201, { token })
     } catch (err) {
         return server_error(res, err)

@@ -1,3 +1,3 @@
-exports.errors={
-    TokenExpiredError:"Unauthrized! Please login again"
+export const errors = {
+    TokenExpiredError: 'Unauthrized! Please login again',
 }

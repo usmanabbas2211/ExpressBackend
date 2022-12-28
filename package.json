@@ -3,9 +3,11 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"start": "node server.js",
-		"dev": "nodemon server.js"
+		"dev": "nodemon --experimental-specifier-resolution=node server.js",
+		"eslint:check":"npx eslint . --ext .js --ext .ts"
 	},
 	"keywords": [],
 	"author": "",

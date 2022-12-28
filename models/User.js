@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -34,6 +34,4 @@ userSchema.methods.isValidPassword = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
 
-module.exports = mongoose.model('User', userSchema)
-
-//in mongodb it will be stored as users
+export const UserModel = mongoose.model('User', userSchema)

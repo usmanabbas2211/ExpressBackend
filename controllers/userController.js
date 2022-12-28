@@ -1,17 +1,17 @@
-const User = require('../models/User')
-const { ok, bad_request, server_error } = require('../helpers/responseHelper')
-const { signAccessToken } = require('../helpers/jwtHelper')
+import { UserModel } from '../models/User'
+import { ok, bad_request, server_error } from '../helpers/responseHelper'
+import { signAccessToken } from '../helpers/jwtHelper'
 
-const signup = async (req, res, next) => {
+export const signup = async (req, res) => {
     const { name, email, password } = req.body
-    const user = new User({
+    const user = new UserModel({
         name,
         email,
         password,
     })
     let existingUser
     try {
-        existingUser = await User.findOne({ email: email })
+        existingUser = await UserModel.findOne({ email: email })
     } catch (err) {
         return server_error(res, err)
     }
@@ -28,11 +28,11 @@ const signup = async (req, res, next) => {
     }
 }
 
-const login = async (req, res, next) => {
+export const login = async (req, res) => {
     const { email, password } = req.body
     let existingUser
     try {
-        existingUser = await User.findOne({ email: email })
+        existingUser = await UserModel.findOne({ email: email })
     } catch (err) {
         return server_error(res, err)
     }
@@ -48,6 +48,3 @@ const login = async (req, res, next) => {
     const token = await signAccessToken(existingUser._id)
     return ok(res, 200, { token })
 }
-
-exports.signup = signup
-exports.login = login

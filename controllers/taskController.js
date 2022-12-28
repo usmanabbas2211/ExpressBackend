@@ -1,21 +1,20 @@
-const { ok, bad_request, server_error } = require('../helpers/responseHelper')
-const Task = require('../models/Task')
+import { ok, server_error } from '../helpers/responseHelper'
+import { TaskModel } from '../models/Task'
 
-exports.getAllTasks = async (req, res, next) => {
-    // console.log(req)
+export const getAllTasks = async (req, res, next) => {
     const userId = req.user.aud
     let tasks
     try {
-        tasks = await Task.find({ userId })
+        tasks = await TaskModel.find({ userId })
     } catch (err) {
         return server_error(res, err)
     }
     return ok(res, 200, { tasks: tasks })
 }
 
-exports.createTask = async (req, res, next) => {
+export const createTask = async (req, res, next) => {
     const { userId, heading, description } = req.body
-    const task = new Task({
+    const task = new TaskModel({
         userId,
         heading,
         description,

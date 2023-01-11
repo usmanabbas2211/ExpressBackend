@@ -1,10 +1,9 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
-import { authenticate } from './middlewares/auth'
-import userRoutes from './routes/userRoutes'
-import taskRoutes from './routes/taskRoutes'
+import { initiatRoutes } from './routes/mainRouter'
 import cors from 'cors'
+/*eslint-disable */
 import * as colors from 'colors'
 import * as dotenv from 'dotenv'
 
@@ -18,14 +17,8 @@ app.use(
     })
 )
 app.use(morgan('combined'))
-app.get('/api/hello', (req, res) => {
-    res.send('Hello World get!')
-})
-app.post('/api/hello', (req, res) => {
-    res.send('Hello World post!')
-})
-app.use('/api', userRoutes)
-app.use('/api/tasks', authenticate, taskRoutes)
+
+initiatRoutes(app)
 
 mongoose
     .connect(process.env.MONGO_QUERY_STRING)

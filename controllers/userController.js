@@ -4,14 +4,10 @@ import { signAccessToken } from '../helpers/jwtHelper'
 
 export const signup = async (req, res) => {
     const { name, email, password } = req.body
-    const user = new UserModel({
-        name,
-        email,
-        password,
-    })
+
     let existingUser
     try {
-        existingUser = await UserModel.findOne({ email: email })
+        existingUser = await UserModel.findOne({ email })
     } catch (err) {
         return server_error(res, err)
     }
@@ -19,7 +15,7 @@ export const signup = async (req, res) => {
         return bad_request(res, 'user with same email address already exists')
     }
     try {
-        const savedUser = await user.save()
+        const savedUser = await UserModel.create({ name, email, password })
         const token = await signAccessToken(savedUser._id)
 
         return ok(res, 201, { token })
@@ -37,7 +33,7 @@ export const login = async (req, res) => {
         return server_error(res, err)
     }
     if (!existingUser) {
-        return bad_request(res, 'user not found')
+        return bad_request(res, 'email/password is invalid')
     }
 
     const isMatch = await existingUser.isValidPassword(password)

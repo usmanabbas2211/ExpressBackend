@@ -1,7 +1,7 @@
 import { ok, server_error } from '../helpers/responseHelper'
 import { TaskModel } from '../models/Task'
 
-export const getAllTasks = async (req, res, next) => {
+export const getAllTasks = async (req, res) => {
     const userId = req.user.aud
     let tasks
     try {
@@ -12,7 +12,7 @@ export const getAllTasks = async (req, res, next) => {
     return ok(res, 200, { tasks: tasks })
 }
 
-export const createTask = async (req, res, next) => {
+export const createTask = async (req, res) => {
     const { userId, heading, description } = req.body
     const task = new TaskModel({
         userId,
